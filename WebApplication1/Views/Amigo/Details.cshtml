@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.Amigo
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>Amigo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+    </dl>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5"><p class="font-weight-bold">Jogos Emprestados</p></div>
+    </div>
+    <ul class="list-group">
+        @if (Model.Emprestimos.Count() == 0)
+    {
+        <li class="list-group-item">
+            Nenhum jogo emprestado.
+        </li>
+
+}
+        @foreach (Emprestimo emprestimo in Model.Emprestimos)
+    {
+        <li class="list-group-item">
+            @Html.DisplayName(emprestimo.Jogo_Emprestimo.Nome)
+        </li>
+}
+    </ul>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

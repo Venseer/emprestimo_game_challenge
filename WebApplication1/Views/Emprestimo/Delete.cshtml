@@ -1,0 +1,39 @@
+﻿@model WebApplication1.Models.Emprestimo
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Tem certeza que deseja deletar isso?</h3>
+<div>
+    <h4>Emprestimo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Data de Emprestimo
+        </dt>
+        <dd>
+            @Html.DisplayName(Model.DataHoraEmprestimo.ToString("dd-MM-yyyy"))
+        </dd>
+        <dt>
+            Amigo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Amigo_Emprestimo.Nome)
+        </dd>
+        <dt>
+            Jogo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Jogo_Emprestimo.Nome)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Deletar" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApplication1.Models.Emprestimo>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Jogo
+            </th>
+            <th>
+                Pessoa
+            </th>
+                <th>
+                    Data e Hora
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayName(item.Jogo_Emprestimo.Nome)
+            </td>
+            <td>
+                @Html.DisplayName(item.Amigo_Emprestimo.Nome)
+            </td>
+            <td>
+                @Html.DisplayName(item.DataHoraEmprestimo.ToString("dd-MM-yyyy"))
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, null)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
