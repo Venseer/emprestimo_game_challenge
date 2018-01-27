@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [BasicAuthenticationAttribute("UsuarioTeste", "SenhaTeste", BasicRealm = "Enter Basic Authentication")]
     public class AmigoController : Controller
     {
         private readonly DatabaseContext _context;
@@ -19,14 +21,12 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        // GET: Amigo
         public ActionResult Index()
         {
             
             return View(_context.Amigos.ToList().OrderBy(a=>a.Nome));
         }
 
-        // GET: Amigo/Details/5
         public ActionResult Details(int id)
         {
             Amigo amigo = _context.Amigos
@@ -36,13 +36,11 @@ namespace WebApplication1.Controllers
             return View(amigo);
         }
 
-        // GET: Amigo/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Amigo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -61,13 +59,11 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // GET: Amigo/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Amigo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -84,7 +80,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // GET: Amigo/Delete/5
         public ActionResult Delete(int id)
         {
             Amigo amigo = _context.Amigos
@@ -94,7 +89,6 @@ namespace WebApplication1.Controllers
             return View(amigo);
         }
 
-        // POST: Amigo/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

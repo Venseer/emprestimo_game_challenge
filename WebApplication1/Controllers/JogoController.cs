@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [BasicAuthenticationAttribute("UsuarioTeste", "SenhaTeste", BasicRealm = "Enter Basic Authentication")]
     public class JogoController : Controller
     {
         private readonly DatabaseContext _context;
@@ -19,7 +21,6 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        // GET: Jogo
         public ActionResult Index()
         {
             List<Jogo> lista =
@@ -32,7 +33,6 @@ namespace WebApplication1.Controllers
             return View(lista);
         }
 
-        // GET: Jogo/Details/5
         public ActionResult Details(int id)
         {
             Jogo jogo = _context.Jogos
@@ -45,13 +45,11 @@ namespace WebApplication1.Controllers
             return View(jogo);
         }
 
-        // GET: Jogo/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Jogo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -82,7 +80,6 @@ namespace WebApplication1.Controllers
             return View(jogo);
         }
 
-        // POST: Jogo/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

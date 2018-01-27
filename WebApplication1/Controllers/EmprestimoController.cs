@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [BasicAuthenticationAttribute("UsuarioTeste", "SenhaTeste", BasicRealm = "Enter Basic Authentication")]
     public class EmprestimoController : Controller
     {
         private readonly DatabaseContext _context;
@@ -20,7 +22,7 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        // GET: Emprestimo
+        
         public ActionResult Index()
         {
             List<Emprestimo> emprestimos = _context.Emprestimos
@@ -30,6 +32,7 @@ namespace WebApplication1.Controllers
             return View(emprestimos.OrderByDescending(e => e.DataHoraEmprestimo));
         }
 
+        
         public ActionResult Create()
         {
             List<Jogo> ListaJogosDisponiveis = _context
@@ -50,7 +53,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        // POST: Emprestimo/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -72,7 +75,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // GET: Emprestimo/Delete/5
+
         [HttpGet]
         public ActionResult Delete(int id)
         {
@@ -81,6 +84,7 @@ namespace WebApplication1.Controllers
                 .Include(e => e.Jogo_Emprestimo)
                 .Single(e => e.Id == id));
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
